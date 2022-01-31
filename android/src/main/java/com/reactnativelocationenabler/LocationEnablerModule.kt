@@ -1,8 +1,8 @@
 package com.reactnativelocationenabler
 
 import android.app.Activity
-import android.content.Intent
-import android.content.IntentSender
+import android.content.*
+import android.location.LocationManager
 import androidx.annotation.Nullable
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
@@ -32,6 +32,26 @@ class LocationEnablerModule(reactContext: ReactApplicationContext) : ReactContex
       }
     }
     reactContext.addActivityEventListener(activityEventListener)
+
+    // Allow listening to location changes when done through system settings
+    val locationSwitchStateReceiver = object : BroadcastReceiver() {
+      override fun onReceive(context: Context?, intent: Intent?) {
+        if (intent !== null && LocationManager.PROVIDERS_CHANGED_ACTION == intent.action) {
+          val locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+          val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+          val isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+
+          val result = Arguments.createMap()
+          if (isGpsEnabled && isNetworkEnabled) {
+            result.putBoolean("locationEnabled", true)
+          } else {
+            result.putBoolean("locationEnabled", false)
+          }
+          sendEvent(EVENT_NAME, result)
+        }
+      }
+    }
+    reactContext.registerReceiver(locationSwitchStateReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
   }
 
   private val TAG = "LocationEnabler"
@@ -110,5 +130,16 @@ class LocationEnablerModule(reactContext: ReactApplicationContext) : ReactContex
 
   private fun sendEvent(eventName: String, @Nullable params: WritableMap) = runBlocking(Dispatchers.Default) {
     context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java).emit(eventName, params)
+  }
+
+  
+  @ReactMethod
+  public fun addListener(eventName: String) {
+    // Keep: Required for RN built in Event Emitter Calls.
+  }
+
+  @ReactMethod
+  public fun removeListeners(count: Int) {
+    // Keep: Required for RN built in Event Emitter Calls.
   }
 }

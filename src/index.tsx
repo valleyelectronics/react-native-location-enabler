@@ -15,7 +15,13 @@ const EVENT_NAME = 'onChangeLocationSettings';
 const locationEnabler = new NativeEventEmitter(LocationEnabler);
 
 // Do not create NativeEventEmitter listeners if the platform is iOS
-LocationEnabler.addListener = (listener: Listener, context?: any) =>
+/* 
+ * For reasons I could not find out this method must not have the same name
+ * as the new NativeEventEmitter().addListener() added to the Kotlin class
+ * to prevent a warning message on launch. If both have the same name, this
+ * ends in an endless loop.
+ */
+LocationEnabler.addChangeListener = (listener: Listener, context?: any) =>
   Platform.OS === 'android'
     ? locationEnabler.addListener(EVENT_NAME, listener, context)
     : () => null;
