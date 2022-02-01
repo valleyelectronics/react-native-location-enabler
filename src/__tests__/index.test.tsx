@@ -21,10 +21,10 @@ describe("Test native module 'react-native-location-enabler'", () => {
     expect(requestResolution()).toBeUndefined();
   });
 
-  test('[ LocationEnabler.addListener ] is a valid function subscriber', () => {
-    const addListener = LocationEnabler.addListener;
-    expect(addListener).toBeTruthy();
-    expect(addListener(listner).remove).toBeTruthy();
+  test('[ LocationEnabler.addChangeListener ] is a valid function subscriber', () => {
+    const addChangeListener = LocationEnabler.addChangeListener;
+    expect(addChangeListener).toBeTruthy();
+    expect(addChangeListener(listner).remove).toBeTruthy();
   });
 
   test('[ LocationEnabler.once ] is a valid function subscriber', () => {
