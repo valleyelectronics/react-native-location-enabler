@@ -15,10 +15,10 @@ Pod::Spec.new do |s|
     This makes react-native-location-enabler useable in mixed Android / iOS projects.
                          DESC
   
-    s.homepage         = 'https://github.com/Jurpp/react-native-location-enabler'
+    s.homepage         = 'https://github.com/valleyelectronics/react-native-location-enabler'
     s.license          = { :type => 'MIT', :file => '../LICENSE' }
     s.author           = { 'Jurpp' => 'jurbruinink@protonmail.com' }
-    s.source           = { :git => 'https://github.com/Jurpp/react-native-location-enabler.git', :tag => s.version.to_s }
+    s.source           = { :git => 'https://github.com/valleyelectronics/react-native-location-enabler.git', :tag => s.version.to_s }
   
     s.ios.deployment_target = '9.0'
     s.dependency "React"
