@@ -12,7 +12,7 @@ const { LocationEnabler } = NativeModules;
 const EVENT_NAME = 'onChangeLocationSettings';
 
 // Override
-const locationEnabler = new NativeEventEmitter(LocationEnabler);
+const locationEnabler = Platform.OS === 'android' ? new NativeEventEmitter(LocationEnabler) : undefined;
 
 // Do not create NativeEventEmitter listeners if the platform is iOS
 /* 
@@ -23,13 +23,13 @@ const locationEnabler = new NativeEventEmitter(LocationEnabler);
  */
 LocationEnabler.addChangeListener = (listener: Listener, context?: any) =>
   Platform.OS === 'android'
-    ? locationEnabler.addListener(EVENT_NAME, listener, context)
+    ? locationEnabler?.addListener(EVENT_NAME, listener, context)
     : () => null;
 
 // Do not create NativeEventEmitter listeners if the platform is iOS
 LocationEnabler.once = (listener: Listener, context?: any) =>
   Platform.OS === 'android'
-    ? locationEnabler.once(EVENT_NAME, listener, context)
+    ? locationEnabler?.once(EVENT_NAME, listener, context)
     : () => null;
 
 LocationEnabler.PRIORITIES = LocationEnabler.getConstants();
