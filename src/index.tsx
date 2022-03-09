@@ -8,10 +8,11 @@ import type {
   LocationSettings,
 } from './types';
 
-const { LocationEnabler } = NativeModules;
+let FinalLocationEnabler;
 
 if (Platform.OS === 'android') {
   const EVENT_NAME = 'onChangeLocationSettings';
+  const { LocationEnabler } = NativeModules;
   // Override
   const locationEnabler = new NativeEventEmitter(LocationEnabler);
 
@@ -53,36 +54,44 @@ if (Platform.OS === 'android') {
 
     return [enabled, requestResolutionSettings];
   };
+
+  FinalLocationEnabler = LocationEnabler;
 } else if (Platform.OS === 'ios') {
-  LocationEnabler.PRIORITIES = {
+  FinalLocationEnabler = {} as LocationEnablerType;
+  FinalLocationEnabler.PRIORITIES = {
     HIGH_ACCURACY: 100,
     BALANCED_POWER_ACCURACY: 102,
     LOW_POWER: 104,
     NO_POWER: 105,
   };
 
-  LocationEnabler.useLocationSettings = (
+  FinalLocationEnabler.useLocationSettings = (
     _config: Config,
     _initial?: LocationStatus
   ): LocationSettings => {
     return [false, () => {}];
   };
 
-  LocationEnabler.checkSettings = (_config: Config): void => {};
+  FinalLocationEnabler.checkSettings = (_config: Config): void => {};
 
-  LocationEnabler.requestResolutionSettings = (_config: Config): void => {};
+  FinalLocationEnabler.requestResolutionSettings = (
+    _config: Config
+  ): void => {};
 
-  LocationEnabler.addChangeListener = (_listener: Listener, _context?: any) => {
+  FinalLocationEnabler.addChangeListener = (
+    _listener: Listener,
+    _context?: any
+  ): any => {
     return {
       remove: () => {},
     };
   };
 
-  LocationEnabler.once = (_listener: Listener, _context?: any) => {
+  FinalLocationEnabler.once = (_listener: Listener, _context?: any): any => {
     return {
       remove: () => {},
     };
   };
 }
 
-export default LocationEnabler as LocationEnablerType;
+export default FinalLocationEnabler as LocationEnablerType;

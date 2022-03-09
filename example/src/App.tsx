@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
-import LocationEnabler from 'react-native-location-enabler';
+import FinalLocationEnabler from 'react-native-location-enabler';
 
 const {
   PRIORITIES: { HIGH_ACCURACY },
   useLocationSettings,
-} = LocationEnabler;
+} = FinalLocationEnabler;
 
 const LocationStatus = (props: { enabled: boolean | undefined }) => (
   <Text style={styles.status}>

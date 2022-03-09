@@ -1,4 +1,4 @@
-import LocationEnabler from 'react-native-location-enabler';
+import FinalLocationEnabler from 'react-native-location-enabler';
 jest.mock('react-native-location-enabler');
 
 describe("Test native module 'react-native-location-enabler'", () => {
@@ -13,7 +13,7 @@ describe("Test native module 'react-native-location-enabler'", () => {
   };
 
   test('[ LocationEnabler.useLocationSettings ] is a valid hook method', () => {
-    const useLocationSettings = LocationEnabler.useLocationSettings;
+    const useLocationSettings = FinalLocationEnabler.useLocationSettings;
     expect(useLocationSettings).toBeTruthy();
     const [enabled, requestResolution] = useLocationSettings(options);
     expect(enabled).toBe(Boolean);
@@ -22,31 +22,31 @@ describe("Test native module 'react-native-location-enabler'", () => {
   });
 
   test('[ LocationEnabler.addChangeListener ] is a valid function subscriber', () => {
-    const addChangeListener = LocationEnabler.addChangeListener;
+    const addChangeListener = FinalLocationEnabler.addChangeListener;
     expect(addChangeListener).toBeTruthy();
     expect(addChangeListener(listner).remove).toBeTruthy();
   });
 
   test('[ LocationEnabler.once ] is a valid function subscriber', () => {
-    const once = LocationEnabler.once;
+    const once = FinalLocationEnabler.once;
     expect(once).toBeTruthy();
     expect(once(listner).remove).toBeTruthy();
   });
 
   test('[ LocationEnabler.checkSettings ] is a valid function ', () => {
-    const checkSettings = LocationEnabler.checkSettings;
+    const checkSettings = FinalLocationEnabler.checkSettings;
     expect(checkSettings).toBeTruthy();
     expect(checkSettings(options)).toBeUndefined();
   });
 
   test('[ LocationEnabler.requestResolutionSettings ] is a valid function', () => {
-    const requestResolutionSettings = LocationEnabler.requestResolutionSettings;
+    const requestResolutionSettings = FinalLocationEnabler.requestResolutionSettings;
     expect(requestResolutionSettings).toBeTruthy();
     expect(requestResolutionSettings(options)).toBeUndefined();
   });
 
   test('[ LocationEnabler.PRIORITIES ] is a valid priorities object', () => {
-    const PRIORITIES = LocationEnabler.PRIORITIES;
+    const PRIORITIES = FinalLocationEnabler.PRIORITIES;
     expect(PRIORITIES).toBeTruthy();
     expect(PRIORITIES).toEqual({
       HIGH_ACCURACY: 100,
