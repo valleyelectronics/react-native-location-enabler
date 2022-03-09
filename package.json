@@ -15,9 +15,7 @@
     "cpp",
     "!lib/typescript/example",
     "!android/build",
-    "!**/__tests__",
-    "!**/__fixtures__",
-    "!**/__mocks__"
+    "!**/__fixtures__"
   ],
   "scripts": {
     "test": "jest",
