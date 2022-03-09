@@ -97,7 +97,7 @@ export interface LocationEnablerType {
    * @param listener - Function to invoke when the specified event is emitted
    * @param context - Optional context object to use when invoking the listener
    */
-   addChangeListener(listener: Listener, context?: any): EmitterSubscription;
+  addChangeListener(listener: Listener, context?: any): EmitterSubscription;
 
   /**
    * Similar to addChangeListener, except that the listener is removed after it is
