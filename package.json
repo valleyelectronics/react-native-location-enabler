@@ -13,6 +13,7 @@
     "android",
     "ios",
     "cpp",
+    "react-native-location-enabler.podspec",
     "!lib/typescript/example",
     "!android/build",
     "!**/__fixtures__"
