@@ -4,8 +4,9 @@ buildscript {
   def gradle_version = rootProject.ext.has('gradelVersion') ? rootProject.ext.get('gradelVersion') : project.properties['LocationEnabler_gradelVersion']
 
   repositories {
-    google()
-    jcenter()
+      google()
+      mavenCentral()
+      maven { url 'https://www.jitpack.io' }
   }
 
   dependencies {
@@ -55,8 +56,7 @@ android {
 
 repositories {
   mavenCentral()
-  jcenter()
-  google()
+  mavenLocal()
 
   def found = false
   def defaultDir = null
@@ -114,6 +114,8 @@ repositories {
         found = true
       }
     })
+    google()
+    maven { url 'https://www.jitpack.io' }
   }
 
   if (!found) {
